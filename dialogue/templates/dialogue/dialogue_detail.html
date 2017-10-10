@@ -1,0 +1,9 @@
+{% extends 'dialogue/base.html' %}
+
+{% block content %}
+    <div class="dialogue">
+        <a class="btn btn-default" href="{% url 'dialogue_remove' pk=dialogue.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+        <h1>{{ dialogue.question }}</h1>
+        <p>{{ dialogue.answer|linebreaks }}</p>
+    </div>
+{% endblock %}
