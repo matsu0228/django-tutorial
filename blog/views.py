@@ -1,4 +1,11 @@
-from django.shortcuts import render
+import csv
+import pdfkit
+from django import template
+from django.template.loader import get_template
+from io import TextIOWrapper, StringIO
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from django.template import loader, Context
 from django.utils import timezone
 from .models import Post
 from .forms import PostForm
@@ -51,3 +58,39 @@ def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('post_list')
+
+def export_csv(request):
+    memory_file = StringIO()
+    writer = csv.writer(memory_file)
+    for post in Post.objects.all():
+        row = [post.pk, post.title, post.text]
+        writer.writerow(row)
+        response = HttpResponse( memory_file.getvalue(), content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=db.csv'
+        return response
+
+def export_pdf(request):
+    template = get_template("blog/pdf.html")
+    #  context = Context({'data1':value1, 'data2':valu2})
+    data = {'data': (
+              ('<h2><a>irst row</a></h2>', 'Foo', 'Bar', 'Baz'),
+              ('Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"),
+          ) }
+    html = template.render(data)
+    pdf = pdfkit.from_string(html, False)
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=output.pdf'
+    return response
+
+def debug_pdf(request):
+    template = get_template("blog/pdf.html")
+    #  context = Context({'data1':value1, 'data2':valu2})
+    data = {'data': (
+              ('<a>First row</a>', 'Foo', 'Bar', 'Baz'),
+              ('Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"),
+          ) }
+    html = template.render(data)
+    response = HttpResponse(html, content_type='text/html')
+    return response
+
+
