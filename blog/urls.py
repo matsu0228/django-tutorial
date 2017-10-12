@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^post/report', views.export_csv, name='export_csv'),
     url(r'^post/debug_pdf', views.debug_pdf, name='debug_pdf'),
     url(r'^post/pdf', views.export_pdf, name='export_pdf'),
+    # url(r'^post/proxy_plot', views.proxy_plot, name='proxy_plot'),
 ]

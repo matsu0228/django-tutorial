@@ -13,6 +13,8 @@ sudo pip install virtualenv
 sudo pip install virtualenvwrapper
 ```
 
+
+- css2pdf: http://www.cloudformatter.com/CSS2Pdf.APIDoc.Usage
 # my env
 
 - python3 -V

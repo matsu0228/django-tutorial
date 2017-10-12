@@ -1,3 +1,5 @@
+# import plotly.plotly as py
+# import plotly.graph_objs as go
 import csv
 import pdfkit
 from django import template
@@ -69,6 +71,7 @@ def export_csv(request):
         response['Content-Disposition'] = 'attachment; filename=db.csv'
         return response
 
+# not work for iframe
 def export_pdf(request):
     template = get_template("blog/pdf.html")
     #  context = Context({'data1':value1, 'data2':valu2})
@@ -77,11 +80,23 @@ def export_pdf(request):
               ('Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"),
           ) }
     html = template.render(data)
-    pdf = pdfkit.from_string(html, False)
+    options = {
+          # 'page-size': 'Letter',
+          # 'margin-top': '0.75in',
+          # 'margin-right': '0.75in',
+          # 'margin-bottom': '0.75in',
+          # 'margin-left': '0.75in',
+          'encoding': "UTF-8",
+          'enable-javascript': 'true',
+          'javascript-delay': '10000'
+    }
+    # pdf = pdfkit.from_string(html, False)
+    pdf = pdfkit.from_url("https://plot.ly/~tallidea/7845.embed?showlink=false", False, options)
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=output.pdf'
     return response
 
+# jquery.xeponline for good static image
 def debug_pdf(request):
     template = get_template("blog/pdf.html")
     #  context = Context({'data1':value1, 'data2':valu2})
@@ -90,7 +105,14 @@ def debug_pdf(request):
               ('Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"),
           ) }
     html = template.render(data)
+
+    # fig = py.get_figure('tallidea', '6312')
+    # py.image.save_as(fig,'chris-plot.png')
+
     response = HttpResponse(html, content_type='text/html')
     return response
 
-
+# def proxy_plot(request):
+#     url = "https://plot.ly/~tallidea/6312.embed?showlink=false"
+#     response = urllib.request.urlopen(url).read()
+#     return response

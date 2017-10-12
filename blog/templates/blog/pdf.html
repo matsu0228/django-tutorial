@@ -6,20 +6,20 @@
 <script src="http://www.cloudformatter.com/Resources/pages/css2pdf/script/xeponline.jqplugin.js"></script>
 <script>
   function export_pdf(aFig){
-    console.log(aFig);
-    aFig.forEach((function(iFig){
-      console.log(iFig);
-      console.log( $('#fing-'+iFig) );
-      $('#fig-'+iFig).after('<img src="https://plot.ly/~tallidea/'+iFig+'.jpg" height="300" width="700">');
-      $('#fig-'+iFig).remove();
-    }
-    xepOnline.Formatter.Format('mainpage', {render:'newwin',filename:'mainpage'})
+    aFig.forEach(function(iFig){
+      $('#fig-'+iFig).after('<img id="img-'+iFig+'" src="https://plot.ly/~tallidea/'+iFig+'.jpg" height="300" width="700">');
+    });
+    xepOnline.Formatter.Format('mainpage', {render:'newwin',filename:'mainpage'});
+    // delete image
+    aFig.forEach(function(iFig){
+      $('#img-'+iFig).remove();
+    });
   }
 </script>
 <title>Django Girls blog</title>
 </head>
 <body>
-    <li><a href="#" onclick="return export_pdf(['6321','7845']);">As PDF</a></li>
+    <li><a href="#" onclick="return export_pdf(['6312','7845']);">As PDF</a></li>
     <li><a href="#" onclick="return xepOnline.Formatter.Format('mainpage', {render:'newwin',mimeType:'image/svg+xml'});">As SVG</a></li>
 <div class="page-header">
   <h1><a href="/">Django Girls Blog</a></h1>
@@ -33,7 +33,7 @@
       </div>
 
       <!-- img src="https://plot.ly/~tallidea/6312.jpg" height="300" width="100%"-->
-      <iframe id="fig-6321" src=https://plot.ly/~tallidea/6312.embed?showlink=false
+      <iframe id="fig-6312" src=https://plot.ly/~tallidea/6312.embed?showlink=false
         height="240" width="100%"
         scrolling="no" seamless="seamless"
         frameBorder="0" id="avgstar_B00R2AZLD2">
