@@ -1,0 +1,55 @@
+<html>
+<head>
+<link href='http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/padolsey-archive/jquery.fn/master/cross-domain-ajax/jquery.xdomainajax.js"></script>
+<script src="http://www.cloudformatter.com/Resources/pages/css2pdf/script/xeponline.jqplugin.js"></script>
+<script>
+  function export_pdf(aFig){
+    console.log(aFig);
+    aFig.forEach((function(iFig){
+      console.log(iFig);
+      console.log( $('#fing-'+iFig) );
+      $('#fig-'+iFig).after('<img src="https://plot.ly/~tallidea/'+iFig+'.jpg" height="300" width="700">');
+      $('#fig-'+iFig).remove();
+    }
+    xepOnline.Formatter.Format('mainpage', {render:'newwin',filename:'mainpage'})
+  }
+</script>
+<title>Django Girls blog</title>
+</head>
+<body>
+    <li><a href="#" onclick="return export_pdf(['6321','7845']);">As PDF</a></li>
+    <li><a href="#" onclick="return xepOnline.Formatter.Format('mainpage', {render:'newwin',mimeType:'image/svg+xml'});">As SVG</a></li>
+<div class="page-header">
+  <h1><a href="/">Django Girls Blog</a></h1>
+  <a href="/post/new/" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+</div>
+<div class="content container" id="mainpage">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="post">
+        <h1><a href="/post/1/">test</a></h1>
+      </div>
+
+      <!-- img src="https://plot.ly/~tallidea/6312.jpg" height="300" width="100%"-->
+      <iframe id="fig-6321" src=https://plot.ly/~tallidea/6312.embed?showlink=false
+        height="240" width="100%"
+        scrolling="no" seamless="seamless"
+        frameBorder="0" id="avgstar_B00R2AZLD2">
+      </iframe>
+      <iframe id="fig-7845" src=https://plot.ly/~tallidea/7845.embed?showlink=false
+        width="100%" height="800" scrolling="no" seamless="seamless">
+      </iframe>
+      <div class="post">
+        <h1><a href="/post/3/">t3</a></h1> <div>
+{% for row in data %}
+{{ row.0|addslashes }} <br> <a href="#">  {{ row.1|addslashes }} </a> <br>   {{ row.2|addslashes }}  <br>  {{ row.3|addslashes }}  <br>   {{ row.4|addslashes }}
+{% endfor %}
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
