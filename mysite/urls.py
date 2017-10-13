@@ -24,5 +24,6 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
     url(r'', include('dialogue.urls')),
+    url(r'', include('mock.urls')),
     url(r'', include('blog.urls')),
 ]
