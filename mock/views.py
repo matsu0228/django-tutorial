@@ -1,12 +1,15 @@
 #from .models import Dialogue
 #from .forms import DialogueForm
+import datetime
 import pdfkit
 from django import template
 from django.template.loader import get_template
 from io import TextIOWrapper, StringIO
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
+from .forms import DateForm
+import time, json
 
 #def dialogue_detail(request, pk):
 #    dialogue = get_object_or_404(Dialogue, pk=pk)
@@ -68,4 +71,34 @@ def export_pdf(request):
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=output.pdf'
     return response
+
+def test_form(request):
+  latestdate = '2017-03-01'
+  my_year = latestdate.split('-')[0]
+  my_month = latestdate.split('-')[1]
+  form = DateForm({'month': int(my_month), 'year': my_year})
+  return render(request, 'mock/test_form.html', \
+                {
+                  'dateform':form,\
+                  'my_month':my_month,\
+                  'my_year':my_year,\
+                })
+
+#@csrf_exempt
+def test_form_submit(request):
+  my_year = request.GET['year']
+  my_month_d = request.GET['month']
+  my_month = datetime.datetime.strptime(str(my_month_d), "%b").strftime("%m").lstrip("0")
+
+  # load product data
+  query_params = {
+    "year": my_year,
+    "week": my_month, 
+  }
+
+  page_objs = list()
+  page_objs.append(query_params)
+
+  data = json.dumps(page_objs)
+  return HttpResponse(data, content_type='application/json')
 

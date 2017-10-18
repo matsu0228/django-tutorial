@@ -1,0 +1,58 @@
+<div class="row"> </div>
+<center><h1 class="header">Performance for <b id='month_year'>{{my_month_d}}, {{my_year}}</b></h1></center>
+<br>
+
+<div class="row">    
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>Select a Date</h5>
+      </div>
+      <div class="ibox-content">
+        <div class="row dateform">
+          <form action="/test_form" method="post">
+            {% csrf_token %}
+            {% for field in dateform  %}
+            <div class="col-lg-5">
+              {{ field.label_tag }} {{ field }}
+            </div>
+            {% endfor %}
+
+            <div class="col-lg-2">
+              <br>
+              <button type="button" class="ladda-button ladda-button-demo btn btn-primary" data-style="zoom-in" id="submit_button">Submit</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#submit_button").click(function(){
+    var selectBox = document.getElementById("selectBox");
+    // var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+    var month = $("#id_month option:selected").text();
+    var year = $("#id_year option:selected").text();
+    $.ajax({
+      type:'GET',
+      url:'/test_form_submit',
+      contentType: 'application/json',
+      dataType: 'json', 
+      data: { 'month': month, 'year': year },
+      success : function(response){
+        //
+        console.log(response);
+      },
+      error: function(response){
+        //
+      }
+    });
+  });
+});
+</script>
