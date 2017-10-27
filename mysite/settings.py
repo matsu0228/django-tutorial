@@ -32,16 +32,18 @@ ALLOWED_HOSTS = ['160.16.100.143', '127.0.0.1', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django_numpy',
-    'blog',
-    'dialogue',
-    'mock',
+  'django.contrib.admin',
+  'django.contrib.auth',
+  'django.contrib.contenttypes',
+  'django.contrib.sessions',
+  'django.contrib.messages',
+  'django.contrib.staticfiles',
+  'accounts.apps.AccountsConfig',
+  'alert',
+  'django_numpy',
+  'blog',
+  'dialogue',
+  'mock',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +125,6 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+LOGIN_URL='/accounts/login'
+LOGIN_REDIRECT_URL='/accounts/'
+LOGOUT_REDIRECT_URL='/accounts/login'

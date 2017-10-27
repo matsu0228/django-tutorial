@@ -23,6 +23,8 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', admin.site.urls),
+    url(r'accounts/', include('accounts.urls')), # 追加
+    url(r'alert/', include('alert.urls')), # 追加
     url(r'', include('dialogue.urls')),
     url(r'', include('mock.urls')),
     url(r'', include('blog.urls')),
