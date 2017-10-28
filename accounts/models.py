@@ -38,4 +38,25 @@ class AlertSetting(models.Model):
   updated_time        = models.DateTimeField('updated time', auto_now=True, blank=True, null=True)
   
   def get_settings(django_user):
-    return AlertSetting.objects.filter(user_id=django_user.id)
+    sets = AlertSetting.objects.filter(user_id=django_user.id)
+    return AlertSetting.get_asdict(sets)
+
+  def get_asdict(queryset):
+    ret = list()
+    for q in queryset:
+      ret.append({
+        'alert_name': q.alert_name,
+        'report_type': q.report_type,
+        'period': q.period,
+      })
+    return ret
+  # 'sendto_name         = models.CharField(max_length=100)
+  # 'sendto_address      = models.CharField(max_length=100)
+  # 'appriesto_product   = models.CharField(max_length=100, null=True, blank=True)
+  # 'appriesto_attribute = models.CharField(max_length=100, null=True, blank=True)
+  # 'condition_index     = models.CharField(max_length=100)
+  # condition_command   = models.PositiveSmallIntegerField()
+  # condition_vale      = models.PositiveSmallIntegerField()
+  # created_time        = models.DateTimeField('created time', auto_now_add=True, blank=True, null=True)
+  # updated_time        = models.DateTimeField('updated time', auto_now=True, blank=True, null=True)
+

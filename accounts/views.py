@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.decorators import login_required
 import time, json
+from .models import AlertSetting
 
 def loginview(request):
   current_user = request.user
@@ -16,7 +18,13 @@ def loginview(request):
 
 
 # @user_passes_test(is_brand_member, login_url='/accounts/login/')
+@login_required
 def alert_settings(request):
-  page_objs = { 'key': 'val',  }
+  user = request.user
+  page_objs = {
+    'key': 'val', 
+    'user_id': user.id,
+    'alert': AlertSetting.get_settings(user),
+               }
   data = json.dumps(page_objs)
   return HttpResponse(data, content_type='application/json')
