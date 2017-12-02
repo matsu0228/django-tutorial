@@ -68,7 +68,6 @@ def export_pdf(request):
           # 'javascript-delay': '10000'
     }
     pdf = pdfkit.from_string(html, False, options)
-    # pdf = pdfkit.from_url("https://plot.ly/~tallidea/7845.embed?showlink=false", False, options)
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=output.pdf'
     return response

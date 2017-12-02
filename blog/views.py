@@ -90,8 +90,8 @@ def export_pdf(request):
           'enable-javascript': 'true',
           'javascript-delay': '10000'
     }
-    # pdf = pdfkit.from_string(html, False)
-    pdf = pdfkit.from_url("https://plot.ly/~tallidea/7845.embed?showlink=false", False, options)
+    pdf = pdfkit.from_string(html, False)
+    # pdf = pdfkit.from_url("google", False, options)
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=output.pdf'
     return response
@@ -105,14 +105,5 @@ def debug_pdf(request):
               ('Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"),
           ) }
     html = template.render(data)
-
-    # fig = py.get_figure('tallidea', '6312')
-    # py.image.save_as(fig,'chris-plot.png')
-
     response = HttpResponse(html, content_type='text/html')
     return response
-
-# def proxy_plot(request):
-#     url = "https://plot.ly/~tallidea/6312.embed?showlink=false"
-#     response = urllib.request.urlopen(url).read()
-#     return response
