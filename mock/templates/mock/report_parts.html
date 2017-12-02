@@ -1,17 +1,5 @@
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="http://www.cloudformatter.com/Resources/pages/css2pdf/script/xeponline.jqplugin.js"></script>
-<script>
-  function export_pdf(aFig){
-    aFig.forEach(function(iFig){
-        $('#fig-'+iFig).after('<img id="img-'+iFig+'" src="https://plot.ly/~tallidea/'+iFig+'.jpg" height="300" width="700">');
-        });
-    xepOnline.Formatter.Format('report-main', {render:'newwin',filename:'report-commerceai'});
-    // delete image
-    aFig.forEach(function(iFig){
-        $('#img-'+iFig).remove();
-        });
-  }
-</script>
 
 <div class="row">
   <div class="col-lg-4">

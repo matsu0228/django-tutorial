@@ -27,6 +27,7 @@ import time, json
     #     form = DialogueForm()
     #     return render(request, 'dialogue/dialogue_detail.html', {'dialogue': dialogue})
     #
+
 def mock_main(request):
   return render(request, 'mock/mock_main.html',
                 {'a_fig': [
